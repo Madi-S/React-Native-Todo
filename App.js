@@ -15,7 +15,11 @@ export default function App() {
             id: Date.now().toString()
         }
 
-        setTodos(prevTodos => [...prevTodos, newTodo])
+        setTodos(prev => [...prev, newTodo])
+    }
+
+    const removeTodo = id => {
+        setTodos(prev => prev.filter(todo => todo.id !== id))
     }
 
     return (
@@ -28,7 +32,9 @@ export default function App() {
                 <FlatList
                     data={todos}
                     keyExtractor={item => item.id}
-                    renderItem={({ item }) => <Todo todo={item} />}
+                    renderItem={({ item }) => (
+                        <Todo todo={item} onLongPress={removeTodo} />
+                    )}
                 />
             </View>
 
