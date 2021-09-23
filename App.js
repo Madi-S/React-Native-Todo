@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { StatusBar } from 'expo-status-bar'
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, ScrollView, FlatList, View, Text } from 'react-native'
 
 import { Todo } from './src/Todo'
 import { Navbar } from './src/Navbar'
@@ -11,24 +11,25 @@ export default function App() {
 
     const addTodo = title => {
         const newTodo = {
-            id: Date.now().toString(),
-            title: title
+            title,
+            id: Date.now().toString()
         }
 
         setTodos(prevTodos => [...prevTodos, newTodo])
     }
 
     return (
-        <View>
+        <View style={styles.root}>
             <Navbar title='Todo App' />
 
             <View style={styles.content}>
                 <AddTodo onSubmit={addTodo} />
-                <View>
-                    {todos.map(todo => (
-                        <Todo key={todo.id} todo={todo} />
-                    ))}
-                </View>
+
+                <FlatList
+                    data={todos}
+                    keyExtractor={item => item.id}
+                    renderItem={({ item }) => <Todo todo={item} />}
+                />
             </View>
 
             <StatusBar style='auto' />
@@ -37,9 +38,13 @@ export default function App() {
 }
 
 const styles = StyleSheet.create({
+    root: {
+        flex: 1
+    },
     content: {
         paddingHorizontal: 30,
-        paddingVertical: 20
+        paddingVertical: 20,
+        flex: 1
     }
 })
 
