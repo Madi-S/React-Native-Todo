@@ -1,8 +1,8 @@
 import React from 'react'
 import { View, FlatList, StyleSheet } from 'react-native'
 
-import { Todo } from './../components/Todo'
-import { AddTodo } from './../components/AddTodo'
+import { Todo } from '../components/Todo'
+import { AddTodo } from '../components/AddTodo'
 
 export const MainScreen = ({ todos, openTodo, addTodo, removeTodo }) => {
     return (
