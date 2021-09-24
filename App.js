@@ -4,6 +4,7 @@ import { StyleSheet, View } from 'react-native'
 
 import { Navbar } from './src/components/Navbar'
 import { MainScreen } from './src/screens/MainScreen'
+import { TodoScreen } from './src/screens/TodoScreen'
 
 export default function App() {
     const [todoId, setTodoId] = useState(null)
@@ -22,17 +23,18 @@ export default function App() {
         setTodos(prev => prev.filter(todo => todo.id !== id))
     }
 
+    let Content = (
+        <MainScreen todos={todos} addTodo={addTodo} removeTodo={removeTodo} />
+    )
+    if (todoId) {
+        Content = <TodoScreen />
+    }
+
     return (
         <View style={styles.root}>
             <Navbar title='Todo App' />
 
-            <View style={styles.content}>
-                <MainScreen
-                    todos={todos}
-                    addTodo={addTodo}
-                    removeTodo={removeTodo}
-                />
-            </View>
+            <View style={styles.content}>{Content}</View>
 
             <StatusBar style='auto' />
         </View>
