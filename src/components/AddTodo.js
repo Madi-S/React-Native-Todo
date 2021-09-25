@@ -2,14 +2,14 @@ import React, { useState } from 'react'
 import { View, TextInput, Button, Alert, StyleSheet } from 'react-native'
 
 export const AddTodo = ({ onSubmit }) => {
-    const [todo, setTodo] = useState({ title: '' })
+    const [title, setTitle] = useState('')
 
     const pressHandler = () => {
-        if (todo.title.trim()) {
-            onSubmit(todo.title)
-            setTodo(prev => ({ ...prev, title: '' }))
+        if (title.trim()) {
+            onSubmit(title)
+            setTitle('')
         } else {
-            Alert.alert('Todo title cannot be blank.')
+            Alert.alert('Error', 'Todo title cannot be blank!')
         }
     }
 
@@ -17,13 +17,8 @@ export const AddTodo = ({ onSubmit }) => {
         <View style={styles.block}>
             <TextInput
                 style={styles.input}
-                onChangeText={text =>
-                    setTodo(prev => ({
-                        ...prev,
-                        title: text
-                    }))
-                }
-                value={todo.title}
+                onChangeText={setTitle}
+                value={title}
                 maxLength={300}
                 autoFocus={true}
                 autoCorrect={false}

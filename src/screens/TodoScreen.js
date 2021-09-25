@@ -5,16 +5,26 @@ import { THEME } from '../theme.js'
 import { AppCard } from '../components/ui/AppCard'
 import { EditModal } from '../components/EditModal.js'
 
-export const TodoScreen = ({ todo, goBack, removeTodo }) => {
+export const TodoScreen = ({ todo, goBack, removeTodo, saveTodo }) => {
     const [modal, setModal] = useState(false)
 
     const removeTodoHandler = async () => {
         await removeTodo(todo.id)
     }
 
+    const saveTodoHanlder = title => {
+        saveTodo({ id: todo.id, title })
+        setModal(false)
+    }
+
     return (
         <View>
-            <EditModal visible={modal} onCancel={() => setModal(false)} />
+            <EditModal
+                visible={modal}
+                value={todo.title}
+                onSave={saveTodoHanlder}
+                onCancel={() => setModal(false)}
+            />
 
             <AppCard style={styles.card}>
                 <Text style={styles.title}>{todo.title}</Text>
