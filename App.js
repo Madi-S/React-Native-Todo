@@ -40,7 +40,7 @@ export default function App() {
             [
                 {
                     text: 'Cancel',
-                    style: 'cancel'
+                    style: 'negative'
                 },
                 {
                     text: 'Remove',
