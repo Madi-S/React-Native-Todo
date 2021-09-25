@@ -9,7 +9,7 @@ export const MainScreen = ({ todos, openTodo, addTodo, removeTodo }) => {
         <View style={styles.imgWrapper}>
             <Image
                 style={styles.img}
-                source={require('../../assets/no-items.png')}
+                source={require('../../assets/img/no-items.png')}
             />
         </View>
     )

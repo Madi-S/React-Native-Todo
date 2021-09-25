@@ -1,16 +1,27 @@
 import React, { useState } from 'react'
 import { StatusBar } from 'expo-status-bar'
 import { StyleSheet, View, Alert } from 'react-native'
+import * as Font from 'expo-font'
+import AppLoading from 'expo-app-loading'
 
 import { Navbar } from './src/components/Navbar'
 import { MainScreen } from './src/screens/MainScreen'
 import { TodoScreen } from './src/screens/TodoScreen'
 
 export default function App() {
+    const [isLoading, setIsLoading] = useState(true)
     const [todoId, setTodoId] = useState(null)
-    const [todos, setTodos] = useState([
-        // { id: '1', title: 'Play tennis' }
-    ])
+    const [todos, setTodos] = useState([{ id: '1', title: 'Play tennis' }])
+
+    if (isLoading) {
+        return (
+            <AppLoading
+                startAsync={loadApp}
+                onError={console.warn}
+                onFinish={() => setIsLoading(false)}
+            />
+        )
+    }
 
     const addTodo = title => {
         const newTodo = {
@@ -89,9 +100,16 @@ export default function App() {
 
             <View style={styles.content}>{content}</View>
 
-            <StatusBar style='auto' />
+            <StatusBar hidden={true} />
         </View>
     )
+}
+
+async function loadApp() {
+    await Font.loadAsync({
+        'roboto-bold': require('./assets/fonts/Roboto-Bold.ttf'),
+        'roboto-regular': require('./assets/fonts/Roboto-Regular.ttf')
+    })
 }
 
 const styles = StyleSheet.create({

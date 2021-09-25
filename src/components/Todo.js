@@ -17,7 +17,7 @@ export const Todo = ({ todo, onPress, onLongPress }) => {
             onLongPress={longPressHandler}
         >
             <View style={styles.todo}>
-                <Text>{todo.title}</Text>
+                <Text style={styles.title}>{todo.title}</Text>
             </View>
         </TouchableOpacity>
     )
@@ -32,5 +32,8 @@ const styles = StyleSheet.create({
         borderRadius: 15,
         borderColor: '#eee',
         marginBottom: 10
+    },
+    title: {
+        fontFamily: 'roboto-bold'
     }
 })
