@@ -29,7 +29,6 @@ export default function App() {
 
     const removeTodo = id => {
         const selectedTodo = todos.find(todo => todo.id === id)
-        console.log('selectedTodo', selectedTodo)
         const removeTodoAndGoBack = () => {
             setTodoId(null)
             setTodos(prev => prev.filter(todo => todo.id !== id))
