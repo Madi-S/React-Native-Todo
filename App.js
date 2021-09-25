@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { StatusBar } from 'expo-status-bar'
-import { StyleSheet, View } from 'react-native'
+import { StyleSheet, View, Alert } from 'react-native'
 
 import { Navbar } from './src/components/Navbar'
 import { MainScreen } from './src/screens/MainScreen'
@@ -28,7 +28,29 @@ export default function App() {
     }
 
     const removeTodo = id => {
-        setTodos(prev => prev.filter(todo => todo.id !== id))
+        const selectedTodo = todos.find(todo => todo.id === id)
+        console.log('selectedTodo', selectedTodo)
+        const removeTodoAndGoBack = () => {
+            setTodoId(null)
+            setTodos(prev => prev.filter(todo => todo.id !== id))
+        }
+
+        Alert.alert(
+            'Item removal',
+            `Are you sure to remove ${selectedTodo.title}?`,
+            [
+                {
+                    text: 'Cancel',
+                    style: 'cancel'
+                },
+                {
+                    text: 'Remove',
+                    style: 'destructive',
+                    onPress: removeTodoAndGoBack
+                }
+            ],
+            { cancelable: false }
+        )
     }
 
     let Content = (
@@ -43,7 +65,13 @@ export default function App() {
         const goBack = () => setTodoId(null)
         const selectedTodo = todos.find(todo => todo.id === todoId)
 
-        Content = <TodoScreen todo={selectedTodo} goBack={goBack} />
+        Content = (
+            <TodoScreen
+                removeTodo={removeTodo}
+                todo={selectedTodo}
+                goBack={goBack}
+            />
+        )
     }
 
     return (

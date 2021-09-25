@@ -4,7 +4,11 @@ import { View, Text, Button, StyleSheet } from 'react-native'
 import { THEME } from '../theme.js'
 import { AppCard } from '../components/ui/AppCard'
 
-export const TodoScreen = ({ todo, goBack }) => {
+export const TodoScreen = ({ todo, goBack, removeTodo }) => {
+    const removeTodoHandler = async () => {
+        await removeTodo(todo.id)
+    }
+    
     return (
         <View>
             <AppCard style={styles.card}>
@@ -23,7 +27,7 @@ export const TodoScreen = ({ todo, goBack }) => {
                     <Button
                         title='Remove'
                         color={THEME.DANGER_COLOR}
-                        onPress={() => console.log('On Remove')}
+                        onPress={removeTodoHandler}
                     />
                 </View>
             </View>

@@ -3,6 +3,7 @@ import { Text, View, StyleSheet, TouchableOpacity } from 'react-native'
 
 export const Todo = ({ todo, onPress, onLongPress }) => {
     const longPressHandler = () => {
+        console.log('Calling onLongPress with', todo.id)
         onLongPress(todo.id)
     }
 
