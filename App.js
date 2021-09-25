@@ -7,11 +7,9 @@ import { MainScreen } from './src/screens/MainScreen'
 import { TodoScreen } from './src/screens/TodoScreen'
 
 export default function App() {
-    const [todoId, setTodoId] = useState('2')
+    const [todoId, setTodoId] = useState(null)
     const [todos, setTodos] = useState([
-        { id: '1', title: 'Play tennis' },
-        { id: '2', title: 'Buy some milk' },
-        { id: '3', title: 'Solve math problems' }
+        // { id: '1', title: 'Play tennis' }
     ])
 
     const addTodo = title => {
@@ -53,15 +51,17 @@ export default function App() {
     }
 
     const updateTodo = ({ id, title }) => {
-        setTodos(prev => prev.map(todo => {
-            if (todo.id === id) {
-                todo.title = title
-            }
-            return todo
-        }))
+        setTodos(prev =>
+            prev.map(todo => {
+                if (todo.id === id) {
+                    todo.title = title
+                }
+                return todo
+            })
+        )
     }
 
-    let Content = (
+    let content = (
         <MainScreen
             todos={todos}
             addTodo={addTodo}
@@ -73,7 +73,7 @@ export default function App() {
         const goBack = () => setTodoId(null)
         const selectedTodo = todos.find(todo => todo.id === todoId)
 
-        Content = (
+        content = (
             <TodoScreen
                 goBack={goBack}
                 todo={selectedTodo}
@@ -87,7 +87,7 @@ export default function App() {
         <View style={styles.root}>
             <Navbar title='Todo App' />
 
-            <View style={styles.content}>{Content}</View>
+            <View style={styles.content}>{content}</View>
 
             <StatusBar style='auto' />
         </View>
