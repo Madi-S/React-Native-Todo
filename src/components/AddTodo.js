@@ -10,7 +10,6 @@ export const AddTodo = ({ onSubmit }) => {
             onSubmit(title)
             setTitle('')
             Keyboard.dismiss()
-
         } else {
             Alert.alert('Error', 'Todo title cannot be blank!')
         }
