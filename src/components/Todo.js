@@ -1,5 +1,7 @@
 import React from 'react'
-import { Text, View, StyleSheet, TouchableOpacity } from 'react-native'
+import { View, StyleSheet, TouchableOpacity } from 'react-native'
+
+import { AppTextBold } from '../components/ui/AppTextBold'
 
 export const Todo = ({ todo, onPress, onLongPress }) => {
     const longPressHandler = () => {
@@ -17,7 +19,7 @@ export const Todo = ({ todo, onPress, onLongPress }) => {
             onLongPress={longPressHandler}
         >
             <View style={styles.todo}>
-                <Text style={styles.title}>{todo.title}</Text>
+                <AppTextBold>{todo.title}</AppTextBold>
             </View>
         </TouchableOpacity>
     )
@@ -32,8 +34,5 @@ const styles = StyleSheet.create({
         borderRadius: 15,
         borderColor: '#eee',
         marginBottom: 10
-    },
-    title: {
-        fontFamily: 'roboto-bold'
     }
 })
