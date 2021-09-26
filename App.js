@@ -7,6 +7,7 @@ import AppLoading from 'expo-app-loading'
 import { Navbar } from './src/components/Navbar'
 import { MainScreen } from './src/screens/MainScreen'
 import { TodoScreen } from './src/screens/TodoScreen'
+import { THEME } from './src/theme'
 
 export default function App() {
     const [isLoading, setIsLoading] = useState(true)
@@ -117,7 +118,7 @@ const styles = StyleSheet.create({
         flex: 1
     },
     content: {
-        paddingHorizontal: 30,
+        paddingHorizontal: THEME.PADDING_HORIZONTAL,
         paddingVertical: 20,
         flex: 1
     }
