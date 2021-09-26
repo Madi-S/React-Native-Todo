@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
-import { View, TextInput, Button, Alert, StyleSheet } from 'react-native'
+import { View, TextInput, Alert, StyleSheet, Keyboard } from 'react-native'
 import { AntDesign } from '@expo/vector-icons'
-import { THEME } from '../theme'
 
 export const AddTodo = ({ onSubmit }) => {
     const [title, setTitle] = useState('')
@@ -10,6 +9,8 @@ export const AddTodo = ({ onSubmit }) => {
         if (title.trim()) {
             onSubmit(title)
             setTitle('')
+            Keyboard.dismiss()
+
         } else {
             Alert.alert('Error', 'Todo title cannot be blank!')
         }
