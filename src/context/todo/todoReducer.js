@@ -1,3 +1,28 @@
+import { ADD_TODO, REMOVE_TODO, UPDATE_TODO } from '../types'
+
 export const todoReducer = (state, action) => {
-    return state
+    switch (action.type) {
+        case ADD_TODO:
+            return { ...state, todos: [...state.todos, action.payload.todo] }
+
+        case REMOVE_TODO:
+            return {
+                ...state,
+                todos: state.todos.filter(todo => todo.id !== action.payload.id)
+            }
+
+        case UPDATE_TODO:
+            return {
+                ...state,
+                todos: state.todos.map(todo => {
+                    if (todo.id === action.payload.id) {
+                        todo.title = action.payload.title
+                    }
+                    return todo
+                })
+            }
+
+        default:
+            return state
+    }
 }
