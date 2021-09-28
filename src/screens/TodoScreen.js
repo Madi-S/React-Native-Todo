@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import { View, StyleSheet, Dimensions } from 'react-native'
 import { FontAwesome, AntDesign } from '@expo/vector-icons'
 
@@ -7,16 +7,27 @@ import { AppCard } from '../components/ui/AppCard'
 import { AppText } from '../components/ui/AppText'
 import { AppButton } from '../components/ui/AppButton'
 import { EditModal } from '../components/EditModal.js'
+import { TodoContext } from '../context/todo/todoContext.js'
+import { ScreenContext } from '../context/screen/screenContext.js'
 
-export const TodoScreen = ({ todo, goBack, removeTodo, saveTodo }) => {
+export const TodoScreen = () => {
+    const { changeScreen, todoId } = useContext(ScreenContext)
+    const { removeTodo, updateTodo, todos } = useContext(TodoContext)
+
+    const todo = todos.find(t => t.id === todoId)
+    
     const [modal, setModal] = useState(false)
 
+    const goBack = () => {
+        changeScreen(null)
+    }
+
     const removeTodoHandler = async () => {
-        await removeTodo(todo.id)
+        removeTodo(todo.id)
     }
 
     const saveTodoHanlder = title => {
-        saveTodo({ id: todo.id, title })
+        updateTodo({ id: todo.id, title })
         setModal(false)
     }
 

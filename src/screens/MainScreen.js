@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import {
     View,
     Image,
@@ -10,8 +10,13 @@ import {
 import { THEME } from '../theme.js'
 import { Todo } from '../components/Todo'
 import { AddTodo } from '../components/AddTodo'
+import { TodoContext } from '../context/todo/todoContext.js'
+import { ScreenContext } from '../context/screen/screenContext.js'
 
-export const MainScreen = ({ todos, openTodo, addTodo, removeTodo }) => {
+export const MainScreen = () => {
+    const { changeScreen } = useContext(ScreenContext)
+    const { addTodo, removeTodo, todos } = useContext(TodoContext)
+
     let content = (
         <View style={styles.imgWrapper}>
             <Image
@@ -22,11 +27,13 @@ export const MainScreen = ({ todos, openTodo, addTodo, removeTodo }) => {
     )
 
     if (todos.length) {
+        const openTodo = changeScreen
+
         const { width } = useWindowDimensions()
         const viewWidth = width - 2 * THEME.PADDING_HORIZONTAL
 
         content = (
-            <View style={{ 'width': viewWidth }}>
+            <View style={{ width: viewWidth }}>
                 <FlatList
                     data={todos}
                     keyExtractor={item => item.id}

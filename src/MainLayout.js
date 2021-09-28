@@ -6,16 +6,10 @@ import { THEME } from './theme'
 import { Navbar } from './components/Navbar'
 import { MainScreen } from './screens/MainScreen'
 import { TodoScreen } from './screens/TodoScreen'
-import { TodoContext } from './context/todo/todoContext'
 import { ScreenContext } from './context/screen/screenContext'
 
 export const MainLayout = () => {
-    const { changeScreen, todoId } = useContext(ScreenContext)
-    const { todos, addTodo, removeTodo, updateTodo } = useContext(TodoContext)
-
-    const openTodo = id => {
-        changeScreen(id)
-    }
+    const { todoId } = useContext(ScreenContext)
 
     // const removeTodo = id => {
     //     const selectedTodo = todos.find(todo => todo.id === id)
@@ -42,27 +36,7 @@ export const MainLayout = () => {
     //     )
     // }
 
-    let content = (
-        <MainScreen
-            todos={todos}
-            addTodo={addTodo}
-            removeTodo={removeTodo}
-            openTodo={openTodo}
-        />
-    )
-    if (todoId) {
-        const goBack = () => changeScreen(null)
-        const selectedTodo = todos.find(todo => todo.id === todoId)
-
-        content = (
-            <TodoScreen
-                goBack={goBack}
-                todo={selectedTodo}
-                saveTodo={updateTodo}
-                removeTodo={removeTodo}
-            />
-        )
-    }
+    const content = todoId ? <TodoScreen /> : <MainScreen />
 
     return (
         <View style={styles.root}>
