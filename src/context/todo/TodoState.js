@@ -27,12 +27,11 @@ export const TodoState = ({ children }) => {
             payload: { id }
         })
 
-    const updateTodo = ({ id, title }) => {
+    const updateTodo = ({ id, title }) =>
         dispatch({
             type: UPDATE_TODO,
             payload: { id, title }
         })
-    }
 
     return (
         <TodoContext.Provider
