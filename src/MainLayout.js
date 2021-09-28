@@ -11,31 +11,6 @@ import { ScreenContext } from './context/screen/screenContext'
 export const MainLayout = () => {
     const { todoId } = useContext(ScreenContext)
 
-    // const removeTodo = id => {
-    //     const selectedTodo = todos.find(todo => todo.id === id)
-    //     const removeTodoAndGoBack = () => {
-    //         setTodoId(null)
-    //         setTodos(prev => prev.filter(todo => todo.id !== id))
-    //     }
-
-    //     Alert.alert(
-    //         'Item removal',
-    //         `Are you sure to remove ${selectedTodo.title}?`,
-    //         [
-    //             {
-    //                 text: 'Cancel',
-    //                 style: 'negative'
-    //             },
-    //             {
-    //                 text: 'Remove',
-    //                 style: 'destructive',
-    //                 onPress: removeTodoAndGoBack
-    //             }
-    //         ],
-    //         { cancelable: false }
-    //     )
-    // }
-
     const content = todoId ? <TodoScreen /> : <MainScreen />
 
     return (
