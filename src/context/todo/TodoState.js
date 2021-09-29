@@ -21,16 +21,23 @@ export const TodoState = ({ children }) => {
 
     const { changeScreen } = useContext(ScreenContext)
 
-    const addTodo = title =>
+    const addTodo = async title => {
+        const response = await fetch(
+            'https://native-todo-a40c4-default-rtdb.europe-west1.firebasedatabase.app/todos.json',
+            {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ title })
+            }
+        )
+        const data = await response.json()
+        const id = data.name
+
         dispatch({
             type: ADD_TODO,
-            payload: {
-                todo: {
-                    title,
-                    id: Date.now().toString()
-                }
-            }
+            payload: { todo: { id, title } }
         })
+    }
     const removeTodo = id => {
         const todoToRemove = state.todos.find(t => t.id === id)
 
@@ -66,7 +73,8 @@ export const TodoState = ({ children }) => {
     const showLoader = () => dispatch({ type: SHOW_LOADER })
     const hideLoader = () => dispatch({ type: HIDE_LOADER })
 
-    const showError = error => dispatch({ type: SHOW_ERROR, payload: { error } })
+    const showError = error =>
+        dispatch({ type: SHOW_ERROR, payload: { error } })
     const clearError = () => dispatch({ type: CLEAR_ERROR })
 
     return (
