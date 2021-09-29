@@ -10,6 +10,7 @@ import {
 import { THEME } from '../theme.js'
 import { Todo } from '../components/Todo'
 import { AddTodo } from '../components/AddTodo'
+import { AppLoader } from '../components/ui/AppLoader'
 import { TodoContext } from '../context/todo/todoContext.js'
 import { ScreenContext } from '../context/screen/screenContext.js'
 
@@ -22,6 +23,10 @@ export const MainScreen = () => {
     useEffect(() => {
         loadTodos()
     }, [])
+
+    if (loading) {
+        return <AppLoader />
+    }
 
     let content = (
         <View style={styles.imgWrapper}>
