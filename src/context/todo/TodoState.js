@@ -32,7 +32,6 @@ export const TodoState = ({ children }) => {
         // dispatch({ type: FETCH_TODOS, payload: { todos } })
         // hideLoader()
     }
-
     const addTodo = async title => {
         const response = await fetch(
             'https://native-todo-a40c4-default-rtdb.europe-west1.firebasedatabase.app/todos.json',
@@ -76,11 +75,20 @@ export const TodoState = ({ children }) => {
             { cancelable: false }
         )
     }
-    const updateTodo = ({ id, title }) =>
+    const updateTodo = async ({ id, title }) => {
+        await fetch(
+            `https://native-todo-a40c4-default-rtdb.europe-west1.firebasedatabase.app/todos/${id}.json`,
+            {
+                method: 'PATCH',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ title })
+            }
+        )
         dispatch({
             type: UPDATE_TODO,
             payload: { id, title }
         })
+    }
 
     const showLoader = () => dispatch({ type: SHOW_LOADER })
     const hideLoader = () => dispatch({ type: HIDE_LOADER })

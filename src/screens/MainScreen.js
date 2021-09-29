@@ -16,13 +16,14 @@ import { ScreenContext } from '../context/screen/screenContext.js'
 
 export const MainScreen = () => {
     const { changeScreen } = useContext(ScreenContext)
-    const { todos, addTodo, removeTodo, fetchTodos, loading, error } = useContext(TodoContext)
-    
-    const loadTodos = useCallback(async () => await fetchTodos(), [fetchTodos])
+    const { todos, addTodo, removeTodo, fetchTodos, loading, error } =
+        useContext(TodoContext)
 
-    useEffect(() => {
-        loadTodos()
-    }, [])
+    // const loadTodos = useCallback(async () => await fetchTodos(), [fetchTodos])
+
+    // useEffect(() => {
+    //     loadTodos()
+    // }, [])
 
     if (loading) {
         return <AppLoader />
