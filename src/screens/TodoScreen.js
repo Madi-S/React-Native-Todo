@@ -15,7 +15,7 @@ export const TodoScreen = () => {
     const { removeTodo, updateTodo, todos } = useContext(TodoContext)
 
     const todo = todos.find(t => t.id === todoId)
-    
+
     const [modal, setModal] = useState(false)
 
     const goBack = () => {
@@ -26,8 +26,8 @@ export const TodoScreen = () => {
         removeTodo(todo.id)
     }
 
-    const saveTodoHanlder = title => {
-        updateTodo({ id: todo.id, title })
+    const saveTodoHanlder = async title => {
+        await updateTodo({ id: todo.id, title })
         setModal(false)
     }
 
