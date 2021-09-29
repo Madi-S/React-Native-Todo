@@ -1,4 +1,13 @@
-import { ADD_TODO, REMOVE_TODO, UPDATE_TODO } from '../types'
+import {
+    ADD_TODO,
+    REMOVE_TODO,
+    UPDATE_TODO,
+    SHOW_LOADER,
+    HIDER_LOADER,
+    SHOW_ERROR,
+    CLEAR_ERROR,
+    FETCH_TODOS
+} from '../types'
 
 export const todoReducer = (state, action) => {
     const handler = handlers[action.type] || handlers.DEFAULT
@@ -23,5 +32,16 @@ const handlers = {
             return todo
         })
     }),
-    DEFAULT: (state, action) => state
+    [SHOW_LOADER]: (state, _) => ({ ...state, loading: true }),
+    [HIDER_LOADER]: (state, _) => ({ ...state, loading: false }),
+    [CLEAR_ERROR]: (state, _) => ({ ...state, error: null }),
+    [SHOW_ERROR]: (state, action) => ({
+        ...state,
+        error: action.payload.error
+    }),
+    [FETCH_TODOS]: (state, action) => ({
+        ...state,
+        todos: action.payload.todos
+    }),
+    DEFAULT: (state, _) => state
 }

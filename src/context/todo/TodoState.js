@@ -4,12 +4,19 @@ import { Alert } from 'react-native'
 import { TodoContext } from './todoContext'
 import { todoReducer } from './todoReducer'
 import { ScreenContext } from '../screen/screenContext'
-import { ADD_TODO, REMOVE_TODO, UPDATE_TODO } from '../types'
+import {
+    ADD_TODO,
+    REMOVE_TODO,
+    UPDATE_TODO,
+    SHOW_LOADER,
+    HIDE_LOADER,
+    SHOW_ERROR,
+    CLEAR_ERROR,
+    FETCH_TODOS
+} from '../types'
 
 export const TodoState = ({ children }) => {
-    const initialState = {
-        todos: [{ id: '1', title: 'Play tennis' }]
-    }
+    const initialState = { todos: [], loading: false, error: null }
     const [state, dispatch] = useReducer(todoReducer, initialState)
 
     const { changeScreen } = useContext(ScreenContext)
@@ -24,7 +31,6 @@ export const TodoState = ({ children }) => {
                 }
             }
         })
-
     const removeTodo = id => {
         const todoToRemove = state.todos.find(t => t.id === id)
 
@@ -51,12 +57,17 @@ export const TodoState = ({ children }) => {
             { cancelable: false }
         )
     }
-
     const updateTodo = ({ id, title }) =>
         dispatch({
             type: UPDATE_TODO,
             payload: { id, title }
         })
+
+    const showLoader = () => dispatch({ type: SHOW_LOADER })
+    const hideLoader = () => dispatch({ type: HIDE_LOADER })
+
+    const showError = error => dispatch({ type: SHOW_ERROR, payload: { error } })
+    const clearError = () => dispatch({ type: CLEAR_ERROR })
 
     return (
         <TodoContext.Provider
