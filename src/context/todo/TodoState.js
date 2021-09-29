@@ -63,7 +63,14 @@ export const TodoState = ({ children }) => {
                 {
                     text: 'Remove',
                     style: 'destructive',
-                    onPress: () => {
+                    onPress: async () => {
+                        await fetch(
+                            `https://native-todo-a40c4-default-rtdb.europe-west1.firebasedatabase.app/todos/${id}.json`,
+                            {
+                                method: 'DELETE',
+                                headers: { 'Content-Type': 'application/json' }
+                            }
+                        )
                         changeScreen(null)
                         dispatch({
                             type: REMOVE_TODO,
