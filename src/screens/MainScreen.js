@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect, useCallback } from 'react'
 import {
     View,
     Image,
@@ -15,7 +15,13 @@ import { ScreenContext } from '../context/screen/screenContext.js'
 
 export const MainScreen = () => {
     const { changeScreen } = useContext(ScreenContext)
-    const { addTodo, removeTodo, todos } = useContext(TodoContext)
+    const { todos, addTodo, removeTodo, fetchTodos, loading, error } = useContext(TodoContext)
+    
+    const loadTodos = useCallback(async () => await fetchTodos(), [fetchTodos])
+
+    useEffect(() => {
+        loadTodos()
+    }, [])
 
     let content = (
         <View style={styles.imgWrapper}>

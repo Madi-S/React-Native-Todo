@@ -21,6 +21,16 @@ export const TodoState = ({ children }) => {
 
     const { changeScreen } = useContext(ScreenContext)
 
+    const fetchTodos = async () => {
+        const response = await fetch(
+            'https://native-todo-a40c4-default-rtdb.europe-west1.firebasedatabase.app/todos.json',
+            { headers: { 'Content-Type': 'application/json' } }
+        )
+        const data = await response.json()
+        const todos = Object.keys(data).map(key => ({ ...data[key], id: key }))
+        // dispatch({ type: FETCH_TODOS, payload: { todos } })
+    }
+
     const addTodo = async title => {
         const response = await fetch(
             'https://native-todo-a40c4-default-rtdb.europe-west1.firebasedatabase.app/todos.json',
@@ -81,9 +91,12 @@ export const TodoState = ({ children }) => {
         <TodoContext.Provider
             value={{
                 todos: state.todos,
+                loading: state.loading,
+                error: state.error,
                 addTodo,
                 removeTodo,
-                updateTodo
+                updateTodo,
+                fetchTodos
             }}
         >
             {children}
