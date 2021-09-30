@@ -22,15 +22,25 @@ export const TodoState = ({ children }) => {
     const { changeScreen } = useContext(ScreenContext)
 
     const fetchTodos = async () => {
-        // showLoader()
-        const response = await fetch(
-            'https://native-todo-a40c4-default-rtdb.europe-west1.firebasedatabase.app/todos.json',
-            { headers: { 'Content-Type': 'application/json' } }
-        )
-        const data = await response.json()
-        const todos = Object.keys(data).map(key => ({ ...data[key], id: key }))
-        // dispatch({ type: FETCH_TODOS, payload: { todos } })
-        // hideLoader()
+        showLoader()
+        clearError()
+
+        try {
+            const response = await fetch(
+                'https://native-todo-a40c4-default-rtdb.europe-west1.firebasedatabase.app/todos.json',
+                { headers: { 'Content-Type': 'application/json' } }
+            )
+            const data = await response.json()
+            const todos = Object.keys(data).map(key => ({
+                ...data[key],
+                id: key
+            }))
+            dispatch({ type: FETCH_TODOS, payload: { todos } })
+        } catch (err) {
+            showError(err.message)
+        }
+        
+        hideLoader()
     }
     const addTodo = async title => {
         const response = await fetch(
@@ -48,6 +58,7 @@ export const TodoState = ({ children }) => {
             type: ADD_TODO,
             payload: { todo: { id, title } }
         })
+        fetchTodos()
     }
     const removeTodo = id => {
         const todoToRemove = state.todos.find(t => t.id === id)

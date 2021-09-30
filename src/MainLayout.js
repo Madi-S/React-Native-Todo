@@ -1,15 +1,23 @@
-import React, { useState, useContext } from 'react'
-import { View, Alert, StyleSheet } from 'react-native'
+import React, { useContext, useEffect, useCallback } from 'react'
+import { View, StyleSheet } from 'react-native'
 import { StatusBar } from 'expo-status-bar'
 
 import { THEME } from './theme'
 import { Navbar } from './components/Navbar'
 import { MainScreen } from './screens/MainScreen'
 import { TodoScreen } from './screens/TodoScreen'
+import { TodoContext } from './context/todo/todoContext'
 import { ScreenContext } from './context/screen/screenContext'
 
 export const MainLayout = () => {
     const { todoId } = useContext(ScreenContext)
+    const { fetchTodos } = useContext(TodoContext)
+
+    const loadTodos = useCallback(async () => await fetchTodos(), [fetchTodos])
+
+    useEffect(() => {
+        loadTodos()
+    }, [])
 
     const content = todoId ? <TodoScreen /> : <MainScreen />
 

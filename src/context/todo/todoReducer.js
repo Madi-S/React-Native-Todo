@@ -3,7 +3,7 @@ import {
     REMOVE_TODO,
     UPDATE_TODO,
     SHOW_LOADER,
-    HIDER_LOADER,
+    HIDE_LOADER,
     SHOW_ERROR,
     CLEAR_ERROR,
     FETCH_TODOS
@@ -33,7 +33,7 @@ const handlers = {
         })
     }),
     [SHOW_LOADER]: (state, _) => ({ ...state, loading: true }),
-    [HIDER_LOADER]: (state, _) => ({ ...state, loading: false }),
+    [HIDE_LOADER]: (state, _) => ({ ...state, loading: false }),
     [CLEAR_ERROR]: (state, _) => ({ ...state, error: null }),
     [SHOW_ERROR]: (state, action) => ({
         ...state,

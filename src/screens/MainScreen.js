@@ -1,7 +1,8 @@
-import React, { useContext, useEffect, useCallback } from 'react'
+import React, { useContext } from 'react'
 import {
     View,
     Image,
+    Alert,
     FlatList,
     StyleSheet,
     useWindowDimensions
@@ -16,14 +17,12 @@ import { ScreenContext } from '../context/screen/screenContext.js'
 
 export const MainScreen = () => {
     const { changeScreen } = useContext(ScreenContext)
-    const { todos, addTodo, removeTodo, fetchTodos, loading, error } =
+    const { todos, addTodo, removeTodo, loading, error } =
         useContext(TodoContext)
 
-    // const loadTodos = useCallback(async () => await fetchTodos(), [fetchTodos])
-
-    // useEffect(() => {
-    //     loadTodos()
-    // }, [])
+    if (error) {
+        Alert.alert(error, 'Error occured')
+    }
 
     if (loading) {
         return <AppLoader />
