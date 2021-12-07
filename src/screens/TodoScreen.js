@@ -46,6 +46,7 @@ export const TodoScreen = () => {
                     <FontAwesome name='edit' size={20} />
                 </AppButton>
             </AppCard>
+
             <View style={styles.buttons}>
                 <View style={styles.button}>
                     <AppButton color={THEME.GREY_COLOR} onPress={goBack}>
@@ -72,7 +73,6 @@ const styles = StyleSheet.create({
     },
     button: {
         width: Dimensions.get('window').width / 4
-        // width: Dimensions.get('window').width > 400 ? 150 : 100
     },
     title: {
         fontSize: 20
